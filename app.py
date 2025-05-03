@@ -1,15 +1,15 @@
-# Import the AssessmentRecommender class
-from assessment_recommender import AssessmentRecommender
+Qfrom flask import Flask, request, render_template
+import recommendation_engine  # your logic script
 
-# Create an instance of AssessmentRecommender with your catalog CSV path
-recommender = AssessmentRecommender("catalog.csv")  # Update this path
+app = Flask(__name__)
 
-# Test the recommendation method
-skills = ["Python", "Data Analysis", "Machine Learning"]  # Example skills
-job_role = "Data Scientist"  # Example job role
+@app.route("/", methods=["GET", "POST"])
+def index():
+    recommendations = None
+    if request.method == "POST":
+        query = request.form["query"]
+        recommendations = recommendation_engine.get_recommendations(query)
+    return render_template("index.html", recommendations=recommendations)
 
-# Get the recommendations
-recommendations = recommender.recommend_assessments(skills, job_role)
-
-# Print the recommendations
-print(recommendations)
+if __name__ == "__main_-":
+    app.run(debug=True)
