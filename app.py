@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template
 import recommendation_engine  # your logic script
 
-app = Flask(_name_)
+app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -11,5 +11,5 @@ def index():
         recommendations = recommendation_engine.get_recommendations(query)
     return render_template("index.html", recommendations=recommendations)
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     app.run(debug=True)
